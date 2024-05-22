@@ -1,0 +1,26 @@
+.flex {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+
+    border: 1px solid black;
+    margin: 5px;
+    text-align: center;
+    width: 300px;
+}
+
+.center {
+    text-align: center;
+}
+
+.padding {
+    padding-top: 5px;
+}
+
+.A4 {
+    width: 800px;
+    height: 1134px;
+    border: solid;
+}
