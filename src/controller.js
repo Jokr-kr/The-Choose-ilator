@@ -13,7 +13,7 @@ function addToList(name, time, cost, experience)
     updateParticipantList();
 }
 
-//i got major help with math from "chatgippity"
+//i got major help with math from "chatgippity" ¯\_(ツ)_/¯
 function calculate()
 {
     var timeWeight = parseFloat(document.getElementById("timeSlider").value);
