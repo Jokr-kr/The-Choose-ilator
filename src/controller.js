@@ -13,47 +13,78 @@ function addToList(name, time, cost, experience)
     updateParticipantList();
 }
 
-//i got major help with math from "chatgippity" ¯\_(ツ)_/¯
+//i got major help with math from "chat-gippity" ¯\_(ツ)_/¯
 function calculate()
 {
+
     var timeWeight = parseFloat(document.getElementById("timeSlider").value);
     var costWeight = parseFloat(document.getElementById("costSlider").value);
     var experienceWeight = parseFloat(document.getElementById("experienceSlider").value);
 
-    model.sorted = [];
+    // Create an array of weighted attributes
+    var weights = [
+        { attribute: 'Time', weight: timeWeight },
+        { attribute: 'Cost', weight: costWeight },
+        { attribute: 'Experience', weight: experienceWeight }
+    ];
 
-    // Perform z-score normalization for each attribute
-    const meanTime = model.participants.reduce((sum, participant) => sum + participant.Time, 0) / model.participants.length;
-    const meanCost = model.participants.reduce((sum, participant) => sum + participant.Cost, 0) / model.participants.length;
-    const meanExperience = model.participants.reduce((sum, participant) => sum + participant.Experience, 0) / model.participants.length;
+    // Filter out attributes with a weight of 0
+    weights = weights.filter(w => w.weight !== 0);
 
-    const stdDevTime = Math.sqrt(model.participants.reduce((sum, participant) => sum + Math.pow(participant.Time - meanTime, 2), 0) / model.participants.length);
-    const stdDevCost = Math.sqrt(model.participants.reduce((sum, participant) => sum + Math.pow(participant.Cost - meanCost, 2), 0) / model.participants.length);
-    const stdDevExperience = Math.sqrt(model.participants.reduce((sum, participant) => sum + Math.pow(participant.Experience - meanExperience, 2), 0) / model.participants.length);
+    // Sort attributes by the absolute value of their weight in descending order
+    weights.sort((a, b) => Math.abs(b.weight) - Math.abs(a.weight));
 
-    // Calculate z-scores for each attribute and update the participants
-    model.participants.forEach(participant =>
-    {
-        participant.normalizedTime = (participant.Time - meanTime) / stdDevTime;
-        participant.normalizedCost = (participant.Cost - meanCost) / stdDevCost;
-        participant.normalizedExperience = (participant.Experience - meanExperience) / stdDevExperience;
-    });
-
-    // Calculate scores for each participant and add them to model.sorted
-    model.participants.forEach(participant =>
-    {
-        var timeScore = timeWeight === 0 ? 0 : Math.abs(participant.normalizedTime - timeWeight / 5);
-        var costScore = costWeight === 0 ? 0 : Math.abs(participant.normalizedCost - costWeight / 5);
-        var experienceScore = experienceWeight === 0 ? 0 : Math.abs(participant.normalizedExperience - experienceWeight / 5);
-
-        var totalScore = (timeScore + costScore + experienceScore) / 3;
-
-        // Add participant along with score to model.sorted
-        model.sorted.push({ participant: participant, score: totalScore });
-    });
-
-    // Sort model.sorted based on scores in ascending order
-    model.sorted.sort((a, b) => a.score - b.score);
+    // Sort participants using the comparison function
+    model.sorted = model.participants.slice().sort((a, b) => compareParticipants(a, b, weights));
 
     updateSortedList();
 }
+
+function compareParticipants(a, b, weights)
+{
+    for (var i = 0; i < weights.length; i++)
+    {
+        var attribute = weights[i].attribute;
+        var weight = weights[i].weight;
+        var aValue = parseFloat(a[attribute]);
+        var bValue = parseFloat(b[attribute]);
+
+        if (aValue !== bValue)
+        {
+            if (weight > 0)
+            {
+                return bValue - aValue; // Higher values first
+            } else
+            {
+                return aValue - bValue; // Lower values first
+            }
+        }
+    }
+    return 0; // If all compared values are equal
+}
+
+
+//test setup
+function test()
+{
+    model.participants.push
+        (
+            { Name: "Alice", Time: 30, Cost: 10, Experience: 7 },
+            { Name: "Bob", Time: 20, Cost: 15, Experience: 5 },
+            { Name: "Charlie", Time: 25, Cost: 20, Experience: 8 },
+            { Name: "David", Time: 35, Cost: 10, Experience: 6 },
+            { Name: "Eve", Time: 20, Cost: 10, Experience: 10 },
+            { Name: "Frank", Time: 40, Cost: 5, Experience: 9 },
+            { Name: "Grace", Time: 25, Cost: 15, Experience: 7 },
+            { Name: "Hank", Time: 30, Cost: 20, Experience: 5 },
+            { Name: "Ivy", Time: 15, Cost: 25, Experience: 6 },
+            { Name: "Jack", Time: 20, Cost: 15, Experience: 8 },
+            { Name: "Ken", Time: 25, Cost: 10, Experience: 5 },
+            { Name: "Lily", Time: 30, Cost: 20, Experience: 7 },
+            { Name: "Mia", Time: 20, Cost: 10, Experience: 6 },
+            { Name: "Nina", Time: 35, Cost: 25, Experience: 5 },
+            { Name: "Oscar", Time: 25, Cost: 15, Experience: 9 }
+        )
+    updateParticipantList();
+}
+

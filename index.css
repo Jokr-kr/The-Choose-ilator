@@ -21,6 +21,6 @@
 
 .A4 {
     width: 800px;
-    height: 1134px;
+    min-height: 1134px;
     border: solid;
 }

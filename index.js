@@ -4,6 +4,7 @@ function run()
     var rootelement = document.getElementById("root");
     rootelement.innerHTML =/*HTML*/
         `
+        <button onclick="test()">Test</button>
         <div class="center">
             <H1>The choose-ilator?</H1>
             <h5>it makes choices</h5>
@@ -26,21 +27,22 @@ function run()
         </div>
 
         <h4 class= center>
-            <ul>sliders are used to determine the weight of each parameter</ul>
-            <ul>minus means shorter or less is valued</ul>
-            <ul>positive means more or higher is valued</ul>
-            <ul>0 means its not important and is ignored</ul>
+            <div>sliders are used to determine the weight of each parameter</>
+            <div>minus means shorter or less is valued</div>
+            <div>positive means more or higher is valued</div>
+            <div>0 means its not important and is ignored</div>
+
         </h4>
         <div class=center>
 
             <div>Time</div>
-                <input type="range" min="-5" max="5" value="0" id="timeSlider" onchange=updateTimeWeight()><span id="timeValue">0</span>
+                <input type="range" min="-3" max="3" value="0" id="timeSlider" onchange=updateTimeWeight()><span id="timeValue">0</span>
 
                 <div>Cost</div>
-                <input type="range" min="-5" max="5" value="0" id="costSlider" onchange=updateCostWeight()><span id="costValue">0</span>
+                <input type="range" min="-3" max="3" value="0" id="costSlider" onchange=updateCostWeight()><span id="costValue">0</span>
 
                 <div >Experience</div>
-                <input type="range" min="-5" max="5" value="0" id="experienceSlider" onchange=updateExperienceWeight()><span id="experienceValue">0</span>
+                <input type="range" min="-3" max="3" value="0" id="experienceSlider" onchange=updateExperienceWeight()><span id="experienceValue">0</span>
 
                 <div></div>
                 <button style="margin-top: 10px" onclick="calculate()">calculate</button>
