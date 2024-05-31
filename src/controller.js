@@ -28,7 +28,6 @@ function calculate()
         { attribute: 'Experience', weight: experienceWeight }
     ];
 
-    // Filter out attributes with a weight of 0
     weights = weights.filter(w => w.weight !== 0);
 
     // Sort attributes by the absolute value of their weight in descending order
@@ -63,27 +62,26 @@ function compareParticipants(a, b, weights)
     return 0; // If all compared values are equal
 }
 
-
 //test setup
 function test()
 {
     model.participants.push
         (
-            { Name: "Alice", Time: 30, Cost: 10, Experience: 7 },
-            { Name: "Bob", Time: 20, Cost: 15, Experience: 5 },
-            { Name: "Charlie", Time: 25, Cost: 20, Experience: 8 },
-            { Name: "David", Time: 35, Cost: 10, Experience: 6 },
-            { Name: "Eve", Time: 20, Cost: 10, Experience: 10 },
-            { Name: "Frank", Time: 40, Cost: 5, Experience: 9 },
-            { Name: "Grace", Time: 25, Cost: 15, Experience: 7 },
-            { Name: "Hank", Time: 30, Cost: 20, Experience: 5 },
-            { Name: "Ivy", Time: 15, Cost: 25, Experience: 6 },
-            { Name: "Jack", Time: 20, Cost: 15, Experience: 8 },
-            { Name: "Ken", Time: 25, Cost: 10, Experience: 5 },
-            { Name: "Lily", Time: 30, Cost: 20, Experience: 7 },
-            { Name: "Mia", Time: 20, Cost: 10, Experience: 6 },
-            { Name: "Nina", Time: 35, Cost: 25, Experience: 5 },
-            { Name: "Oscar", Time: 25, Cost: 15, Experience: 9 }
+            { Name: "#1", Time: 30, Cost: 10, Experience: 7 },
+            { Name: "#2", Time: 20, Cost: 15, Experience: 5 },
+            { Name: "#3", Time: 25, Cost: 20, Experience: 8 },
+            { Name: "#4", Time: 35, Cost: 10, Experience: 6 },
+            { Name: "#5", Time: 20, Cost: 10, Experience: 10 },
+            { Name: "#6", Time: 40, Cost: 5, Experience: 9 },
+            { Name: "bb", Time: 25, Cost: 15, Experience: 7 },
+            { Name: "#8", Time: 30, Cost: 20, Experience: 5 },
+            { Name: "#9", Time: 15, Cost: 25, Experience: 6 },
+            { Name: "#10", Time: 20, Cost: 15, Experience: 8 },
+            { Name: "#11", Time: 25, Cost: 10, Experience: 5 },
+            { Name: "#12", Time: 30, Cost: 20, Experience: 7 },
+            { Name: "#aa", Time: 20, Cost: 10, Experience: 6 },
+            { Name: "#ab", Time: 35, Cost: 25, Experience: 5 },
+            { Name: "#15", Time: 25, Cost: 15, Experience: 9 }
         )
     updateParticipantList();
 }
